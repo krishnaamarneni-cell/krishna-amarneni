@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishna Amarneni — SAP Consultant & Builder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              green: '#3ECF8E',
+              greenDark: '#2BAE73',
+              greenGlow: 'rgba(62,207,142,0.15)',
+            },
+            surface: {
+              base: '#0f0f0f',
+              raised: '#1a1a1a',
+              overlay: '#242424',
+              border: '#2a2a2a',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glowPulse: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '0.8' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background-color: #0f0f0f; color: #ededed; }
+
+    ::selection { background: rgba(62,207,142,0.3); color: #fff; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3ECF8E 0%, #a8edca 50%, #3ECF8E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(62,207,142,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      border-color: rgba(62,207,142,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(62,207,142,0.08);
+    }
+
+    .skill-chip {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      transition: all 0.25s ease;
+    }
+    .skill-chip:hover {
+      background: rgba(62,207,142,0.1);
+      border-color: #3ECF8E;
+      color: #3ECF8E;
+      transform: scale(1.04);
+    }
+
+    .nav-link {
+      position: relative;
+      color: #999;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #3ECF8E;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover { color: #ededed; }
+    .nav-link:hover::after { width: 100%; }
+
+    .cta-btn {
+      background: #3ECF8E;
+      color: #0f0f0f;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: rgba(255,255,255,0.15);
+      transition: left 0.3s ease;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(62,207,142,0.35); }
+    .cta-btn:hover::before { left: 100%; }
+
+    .outline-btn {
+      border: 1px solid #3ECF8E;
+      color: #3ECF8E;
+      transition: all 0.25s ease;
+    }
+    .outline-btn:hover {
+      background: rgba(62,207,142,0.08);
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #2a2a2a, transparent);
+    }
+
+    .badge {
+      background: rgba(62,207,142,0.12);
+      border: 1px solid rgba(62,207,142,0.25);
+      color: #3ECF8E;
+    }
+
+    .project-tag {
+      background: rgba(62,207,142,0.08);
+      border: 1px solid rgba(62,207,142,0.2);
+      color: rgba(62,207,142,0.9);
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #3ECF8E;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3ECF8E, #a8edca);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .scroll-indicator {
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .shimmer-line {
+      background: linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%);
+      background-size: 200% auto;
+    }
+
+    .timeline-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #3ECF8E;
+      box-shadow: 0 0 8px rgba(62,207,142,0.5);
+      flex-shrink: 0;
+    }
+
+    .email-link {
+      color: #3ECF8E;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .email-link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 100%; height: 1px;
+      background: #3ECF8E;
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+    .email-link:hover::after { transform: scaleX(1); }
+
+    /* Intersection observer fade-in */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-surface-border" style="background: rgba(15,15,15,0.85); backdrop-filter: blur(12px);">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <span class="font-mono text-sm text-brand-green font-medium tracking-wider">KA</span>
+      <div class="flex items-center gap-8">
+        <a href="#about" class="nav-link text-sm">About</a>
+        <a href="#skills" class="nav-link text-sm">Skills</a>
+        <a href="#contact" class="nav-link text-sm">Contact</a>
+        <a href="mailto:avgk26@gmail.com" class="cta-btn text-xs px-4 py-2 rounded-md">Get in Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <!-- background elements -->
+    <div class="hero-glow" style="top: -100px; left: 50%; transform: translateX(-50%); animation: glowPulse 4s ease-in-out infinite;"></div>
+
+    <!-- grid pattern -->
+    <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#3ECF8E 1px, transparent 1px), linear-gradient(90deg, #3ECF8E 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 badge text-xs px-3 py-1.5 rounded-full mb-8 reveal" style="transition-delay: 0.1s;">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-green inline-block" style="animation: glowPulse 2s infinite;"></span>
+        <span class="font-mono tracking-wide">Available for projects</span>
+      </div>
+
+      <!-- Name -->
+      <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-4 reveal" style="transition-delay: 0.2s; line-height: 1.05;">
+        <span class="gradient-text">Krishna</span>
+        <br />
+        <span style="color: #ededed;">Amarneni</span>
+      </h1>
+
+      <!-- Title -->
+      <p class="text-xl md:text-2xl font-medium mb-3 reveal" style="color: #999; transition-delay: 0.35s;">
+        SAP Functional Consultant &middot; Delaware
+      </p>
+
+      <!-- Tagline -->
+      <p class="text-base md:text-lg max-w-2xl mx-auto mb-10 reveal" style="color: #666; line-height: 1.7; transition-delay: 0.45s;">
+        7 years turning SAP complexity into business clarity — now building AI-native tools that make enterprise workflows actually intelligent.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16 reveal" style="transition-delay: 0.55s;">
+        <a href="mailto:avgk26@gmail.com" class="cta-btn px-6 py-3 rounded-lg text-sm inline-flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Say Hello
+        </a>
+        <a href="#about" class="outline-btn px-6 py-3 rounded-lg text-sm inline-flex items-center gap-2">
+          View My Work
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="grid grid-cols-3 gap-px max-w-lg mx-auto reveal" style="transition-delay: 0.65s;">
+        <div class="card rounded-l-xl p-6 text-center" style="border-right: none; border-radius: 12px 0 0 12px;">
+          <div class="stat-number">7+</div>
+          <div class="text-xs mt-1" style="color: #666;">Years SAP</div>
+        </div>
+        <div class="card p-6 text-center" style="border-left: none; border-right: none; border-radius: 0;">
+          <div class="stat-number">3</div>
+          <div class="text-xs mt-1" style="color: #666;">SAP Modules</div>
+        </div>
+        <div class="card rounded-r-xl p-6 text-center" style="border-left: none; border-radius: 0 12px 12px 0;">
+          <div class="stat-number">AI</div>
+          <div class="text-xs mt-1" style="color: #666;">Builder</div>
+        </div>
+      </div>
+
+      <!-- scroll cue -->
+      <div class="scroll-indicator mt-12" style="color: #444;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="mb-16 reveal">
+      <div class="section-label mb-3">01 &mdash; About</div>
+      <h2 class="text-4xl font-bold">The person behind the config.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <!-- Bio -->
+      <div class="reveal">
+        <p class="text-base leading-relaxed mb-6" style="color: #aaa;">
+          I'm a SAP Functional Consultant based in Delaware with over 7 years of hands-on experience in
+          <span style="color: #ededed; font-weight: 500;">Materials Management (MM)</span>,
+          <span style="color: #ededed; font-weight: 500;">Sales &amp; Distribution (SD)</span>, and
+          <span style="color: #ededed; font-weight: 500;">SAP Ariba</span> — specializing in
+          Procure-to-Pay processes that actually scale.
+        </p>
+        <p class="text-base leading-relaxed mb-6" style="color: #aaa;">
+          Over the years I've configured, tested, trained, and gone live with SAP implementations across industries —
+          and I've learned that the hardest part is never the system. It's understanding the business deeply enough
+          to make the system serve it.
+        </p>
+        <p class="text-base leading-relaxed" style="color: #aaa;">
+          These days, I'm channeling that same problem-solving lens into building modern, AI-powered tools —
+          most recently <span style="color: #3ECF8E; font-weight: 500;">WealthClaude</span>, an intelligent portfolio
+          tracker that brings enterprise-grade analytics to personal finance.
+        </p>
+      </div>
+
+      <!-- Cards -->
+      <div class="space-y-4 reveal" style="transition-delay: 0.15s;">
+        <!-- Current project card -->
+        <div class="card rounded-xl p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 rounded-full" style="background: radial-gradient(circle, rgba(62,207,142,0.08) 0%, transparent 70%); transform: translate(30%, -30%);"></div>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background: rgba(62,207,142,0.12); border: 1px solid rgba(62,207,142,0.25);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-semibold text-sm">WealthClaude</h3>
+                <span class="project-tag px-2 py-0.5 rounded">active</span>
+              </div>
+              <p class="text-xs leading-relaxed" style="color: #777;">AI-powered portfolio tracker — combining real-time market data with intelligent insights. Built with Next.js, Supabase, and Claude AI.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline card -->
+        <div class="card rounded-xl p-6">
+          <h3 class="text-xs font-mono uppercase tracking-wider mb-4" style="color: #666;">Experience Timeline</h3>
+          <div class="space-y-4">
+            <div class="flex gap-3 items-start">
+              <div class="timeline-dot mt-1.5"></div>
+              <div>
+                <p class="text-sm font-medium">SAP Ariba &amp; P2P</p>
+                <p class="text-xs" style="color: #666;">Procurement workflows, supplier management</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <div class="timeline-dot mt-1.5"></div>
+              <div>
+                <p class="text-sm font-medium">SAP MM / SD Implementation</p>
+                <p class="text-xs" style="color: #666;">End-to-end configuration, go-live support</p>
+              </div>
+            </div>
+            <div class="flex gap-3 items-start">
+              <div class="timeline-dot mt-1.5"></div>
+              <div>
+                <p class="text-sm font-medium">AI Application Development</p>
+                <p class="text-xs" style="color: #666;">Modern stack: Next.js, Supabase, Claude API</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location chip -->
+        <div class="card rounded-xl p-4 flex items-center gap-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="text-sm" style="color: #aaa;">Delaware, USA &nbsp;&middot;&nbsp; Open to remote &amp; hybrid</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="mb-16 reveal">
+      <div class="section-label mb-3">02 &mdash; Skills</div>
+      <h2 class="text-4xl font-bold">The full toolkit.</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+      <!-- SAP Domain -->
+      <div class="reveal">
+        <h3 class="text-xs font-mono uppercase tracking-wider mb-5 flex items-center gap-2" style="color: #3ECF8E;">
+          <span class="w-4 h-px" style="background: #3ECF8E;"></span>
+          SAP &amp; Enterprise
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">SAP MM</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">SAP SD</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">SAP Ariba</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Procure-to-Pay</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Order-to-Cash</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">SAP FICO</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Supplier Mgmt</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Inventory Control</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Contract Mgmt</span>
+        </div>
+      </div>
+
+      <!-- Modern Tech -->
+      <div class="reveal" style="transition-delay: 0.15s;">
+        <h3 class="text-xs font-mono uppercase tracking-wider mb-5 flex items-center gap-2" style="color: #3ECF8E;">
+          <span class="w-4 h-px" style="background: #3ECF8E;"></span>
+          Modern Stack
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Next.js</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">React</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Supabase</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">AI Integration</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Claude API</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">TypeScript</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">Tailwind CSS</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">PostgreSQL</span>
+          <span class="skill-chip px-4 py-2 rounded-lg text-sm font-medium" style="color: #ededed;">REST APIs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="grid md:grid-cols-3 gap-4 mt-14">
+      <div class="card rounded-xl p-6 reveal" style="transition-delay: 0.1s;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: rgba(62,207,142,0.1); border: 1px solid rgba(62,207,142,0.2);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h4 class="font-semibold text-sm mb-2">Enterprise Consulting</h4>
+        <p class="text-xs leading-relaxed" style="color: #666;">Blueprint, configure, test, and go-live across SAP landscapes. 7 years, multiple industries.</p>
+      </div>
+
+      <div class="card rounded-xl p-6 reveal" style="transition-delay: 0.2s;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: rgba(62,207,142,0.1); border: 1px solid rgba(62,207,142,0.2);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <h4 class="font-semibold text-sm mb-2">AI Application Builder</h4>
+        <p class="text-xs leading-relaxed" style="color: #666;">From idea to deployed product. Building with Next.js, Supabase, and AI APIs that scale.</p>
+      </div>
+
+      <div class="card rounded-xl p-6 reveal" style="transition-delay: 0.3s;">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style="background: rgba(62,207,142,0.1); border: 1px solid rgba(62,207,142,0.2);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+        </div>
+        <h4 class="font-semibold text-sm mb-2">Process Architect</h4>
+        <p class="text-xs leading-relaxed" style="color: #666;">Bridging enterprise processes and modern dev. Turning P2P complexity into clean digital flows.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-24 max-w-6xl mx-auto px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="section-label mb-3 reveal">03 &mdash; Contact</div>
+      <h2 class="text-4xl font-bold mb-6 reveal" style="transition-delay: 0.1s;">Let's build something together.</h2>
+      <p class="text-base leading-relaxed mb-10 reveal" style="color: #888; transition-delay: 0.2s;">
+        Whether you need SAP expertise, want to discuss a project, or just want to connect — my inbox is always open.
+      </p>
+
+      <div class="card rounded-2xl p-8 md:p-10 reveal" style="transition-delay: 0.3s;">
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background: rgba(62,207,142,0.12); border: 1px solid rgba(62,207,142,0.25);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <a href="mailto:avgk26@gmail.com" class="email-link text-lg font-medium">avgk26@gmail.com</a>
+        </div>
+
+        <p class="text-sm mb-8" style="color: #666;">
+          Available for SAP consulting projects, AI product collaboration, and full-time opportunities.
+        </p>
+
+        <a href="mailto:avgk26@gmail.com" class="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Send me an email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t py-8 px-6" style="border-color: #1f1f1f;">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs font-mono" style="color: #444;">
+        &copy; 2025 Krishna Amarneni &nbsp;·&nbsp; Built with Next.js &amp; Tailwind
+      </p>
+      <div class="flex items-center gap-1 text-xs" style="color: #444;">
+        <span>Delaware, USA</span>
+        <span class="mx-2">·</span>
+        <a href="mailto:avgk26@gmail.com" class="email-link text-xs" style="color: #666;">avgk26@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth nav highlight (optional enhancement)
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === `#${current}` ? '#ededed' : '';
+      });
+    });
+  </script>
+</body>
+</html>
